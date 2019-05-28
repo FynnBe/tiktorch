@@ -4,6 +4,8 @@ import queue
 import threading
 import enum
 
+import ipdb
+
 from functools import partial
 from concurrent.futures import Future
 from uuid import uuid4
@@ -174,6 +176,7 @@ class MethodDispatcher:
         logger.debug("[id: %s] Send call %s", self._id, self._method_name)
         method_name = self._method_name.encode("utf-8")
         frames = [method_name, self._id, *serialize_args(self._method, args, kwargs)]
+        ipdb.set_trace()
         is_future = isfutureret(self._method)
         if is_future:
             logger.debug("[id: %s] Created future", self._id)
