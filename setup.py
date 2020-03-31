@@ -31,10 +31,9 @@ setup(
         "numpy",
         "pyyaml",
         "torch",
-        "pybio.core @ git+ssh://git@github.com/m-novikov/python-bioimage-io#egg=pybio.core",
-        "pybio.torch @ git+ssh://git@github.com/m-novikov/pytorch-bioimage-io#egg=pybio.torch",
+        "pybio.core @ git+ssh://git@github.com/bioimage-io/python-bioimage-io#egg=pybio.core",
+        "pybio.torch @ git+ssh://git@github.com/bioimage-io/pytorch-bioimage-io#egg=pybio.torch",
     ],
-    entry_points={"console_scripts": ["tiktorch=tiktorch.server.base:main"]},
     # extras_require={"test": ["pytest"]},
     project_urls={  # Optional
         "Bug Reports": "https://github.com/ilastik/tiktorch/issues",

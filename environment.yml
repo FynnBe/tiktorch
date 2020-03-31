@@ -9,9 +9,7 @@ dependencies:
   - mypy
   - pickle5
   - python=3.7.*
-  - scipy=1.4.*  # generic model dependency (not used by tiktorch itself)
   - paramiko=2.4.2
-  - inferno=v0.4.*
   - pillow=6.2.1
   - pyyaml=5.3
   - marshmallow=3.4.0
@@ -22,8 +20,14 @@ dependencies:
   - isort
   - conda-build
   - anaconda-client
-  - bump2version
   - pre_commit
+  # generic model dependency (not used by tiktorch itself)
+  - scipy=1.4.*
+  - inferno=v0.4.*
+  # pip dependencies
+  - pip
   - pip:
-      - pytest-grpc==0.7.0
-      - git+https://github.com/bioimage-io/python-bioimage-io#egg=pybio
+    - bump2version
+    - pytest-grpc==0.7.0
+    - git+https://github.com/bioimage-io/python-bioimage-io#egg=pybio
+    - git+https://github.com/bioimage-io/pytorch-bioimage-io#egg=pybio
