@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import List, Optional, Sequence
@@ -8,6 +9,8 @@ import torch
 from pybio import spec
 from pybio.spec.utils import train
 from tiktorch.server.exemplum import Exemplum
+
+logger = logging.getLogger(__name__)
 
 MODEL_EXTENSIONS = (".model.yaml", ".model.yml")
 
@@ -21,8 +24,10 @@ def guess_model_path(file_names: List[str]) -> Optional[str]:
 
 
 def eval_model_zip(model_zip: ZipFile, devices: Sequence[str], cache_path: Optional[Path] = None):
-    with TemporaryDirectory() as tempdir:
-        temp_path = Path(tempdir)
+
+    tempdir = TemporaryDirectory()
+    try:
+        temp_path = Path(tempdir.name)
         if cache_path is None:
             cache_path = temp_path / "cache"
 
@@ -37,3 +42,8 @@ def eval_model_zip(model_zip: ZipFile, devices: Sequence[str], cache_path: Optio
             ret = train(pybio_model, _devices=devices)
             assert isinstance(ret, Exemplum)
             return ret
+    finally:
+        try:
+            tempdir.cleanup()
+        except PermissionError as e:
+            logger.warning(e)
